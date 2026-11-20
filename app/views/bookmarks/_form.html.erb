@@ -1,0 +1,6 @@
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.association :movie, label_method: :title, prompt: "Choose a movie" %>
+  <%= f.error :movie_id %>
+  <%= f.input :comment, hint: "At least 6 characters" %>
+  <%= f.submit "Add movie" %>
+<% end %>

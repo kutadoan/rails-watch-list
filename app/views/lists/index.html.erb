@@ -1,0 +1,25 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <%= link_to "CINE LOVE", lists_path, class: "navbar-brand fw-bold" %>
+    <%= link_to "New list", new_list_path, class: "btn btn-primary" %>
+  </div>
+</nav>
+
+<header>
+  <img
+    src="https://img.magnific.com/free-vector/realistic-horizontal-cinema-movie-time-poster-with-3d-glasses-snacks-tickets-clapper-reel-blue-background-with-bokeh-vector-illustration_1284-77013.jpg?semt=ais_hybrid&amp;w=740&amp;q=80"
+    alt=""
+    class="w-100 d-block"
+  >
+</header>
+
+  <h1 class="mb-4">My lists</h1>
+
+<div id="lists" class="cards g-3">
+  <% @lists.each do |list| %>
+  <div class="card-category d-flex justify-content-center align-items-center"
+         style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMpr4FEKTC0y25R2vm2Y5iCTWyUvoyTtz-luQNPo1IEw&s=10); background-size: cover; background-position: center; height: 200px;">
+  <%= link_to list.name, list_path(list), class: "text-white fw-bold text-decoration-none text-center fs-4" %>
+  </div>
+  <% end %>
+</div>
