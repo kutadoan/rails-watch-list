@@ -12,14 +12,27 @@
     class="w-100 d-block"
   >
 </header>
-
-  <h1 class="mb-4">My lists</h1>
+<div class="container">
+<h1 class="mb-4">My lists</h1>
 
 <div id="lists" class="cards g-3">
   <% @lists.each do |list| %>
-  <div class="card-category d-flex justify-content-center align-items-center"
-         style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMpr4FEKTC0y25R2vm2Y5iCTWyUvoyTtz-luQNPo1IEw&s=10); background-size: cover; background-position: center; height: 200px;">
-  <%= link_to list.name, list_path(list), class: "text-white fw-bold text-decoration-none text-center fs-4" %>
-  </div>
+    <div class="card-category position-relative overflow-hidden rounded bg-dark"
+         style="height: 180px;">
+
+      <% if list.photo.attached? %>
+        <%= image_tag list.photo,
+                      class: "w-100 h-100",
+                      style: "object-fit: cover;",
+                      alt: "" %>
+      <% end %>
+
+      <%= link_to list.name, list_path(list),
+                  class: "position-absolute top-0 start-0 w-100 h-100
+                          d-flex justify-content-center align-items-center
+                          bg-dark bg-opacity-50 text-white fw-bold
+                          text-decoration-none text-center fs-4" %>
+    </div>
   <% end %>
+</div>
 </div>
