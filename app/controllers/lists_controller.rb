@@ -51,12 +51,9 @@ class ListsController < ApplicationController
 
   # DELETE /lists/1 or /lists/1.json
   def destroy
+    @list = List.find(params[:id])
     @list.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to lists_path, notice: "List was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    redirect_to lists_path, notice: "List deleted.", status: :see_other
   end
 
   private

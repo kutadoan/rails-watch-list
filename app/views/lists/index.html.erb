@@ -1,38 +1,63 @@
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark py-3">
   <div class="container">
-    <%= link_to "CINE LOVE", lists_path, class: "navbar-brand fw-bold" %>
-    <%= link_to "New list", new_list_path, class: "btn btn-primary" %>
+    <%= link_to "CINE LOVE", lists_path, class: "navbar-brand fw-bold mb-0" %>
+    <%= link_to "+ New list", new_list_path, class: "btn btn-primary rounded-pill px-3" %>
   </div>
 </nav>
 
-<header>
+<header class="position-relative bg-dark">
   <img
     src="https://img.magnific.com/free-vector/realistic-horizontal-cinema-movie-time-poster-with-3d-glasses-snacks-tickets-clapper-reel-blue-background-with-bokeh-vector-illustration_1284-77013.jpg?semt=ais_hybrid&amp;w=740&amp;q=80"
     alt=""
     class="w-100 d-block"
+    style="height: clamp(180px, 28vw, 320px); object-fit: cover;"
   >
-</header>
-<div class="container">
-<h1 class="mb-4">My lists</h1>
 
-<div id="lists" class="cards g-3">
-  <% @lists.each do |list| %>
-    <div class="card-category position-relative overflow-hidden rounded bg-dark"
-         style="height: 180px;">
-
-      <% if list.photo.attached? %>
-        <%= image_tag list.photo,
-                      class: "w-100 h-100",
-                      style: "object-fit: cover;",
-                      alt: "" %>
-      <% end %>
-
-      <%= link_to list.name, list_path(list),
-                  class: "position-absolute top-0 start-0 w-100 h-100
-                          d-flex justify-content-center align-items-center
-                          bg-dark bg-opacity-50 text-white fw-bold
-                          text-decoration-none text-center fs-4" %>
+  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end"
+       style="background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));">
+    <div class="container pb-4">
+      <h1 class="display-5 fw-bold text-white mb-0">My lists</h1>
     </div>
+  </div>
+</header>
+
+<main class="container py-4">
+  <% if @lists.empty? %>
+    <p class="text-muted mb-0">No lists yet. Create your first one with “+ New list”.</p>
   <% end %>
-</div>
-</div>
+
+  <div id="lists" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+    <% @lists.each do |list| %>
+      <div class="col">
+        <div class="position-relative overflow-hidden rounded-3 bg-dark shadow-sm"
+             style="height: 200px;">
+
+          <% if list.photo.attached? %>
+            <%= image_tag list.photo,
+                          class: "w-100 h-100 d-block",
+                          style: "object-fit: cover;",
+                          alt: "" %>
+          <% end %>
+
+          <%= link_to list.name, list_path(list),
+                      class: "position-absolute top-0 start-0 w-100 h-100
+                              d-flex align-items-center justify-content-center px-5
+                              bg-dark bg-opacity-50 text-white text-center
+                              text-break text-decoration-none fw-bold fs-4" %>
+
+          <%= button_to "×", list_path(list),
+                        method: :delete,
+                        class: "btn btn-dark border border-light rounded-circle
+                                d-flex align-items-center justify-content-center p-0 fs-5",
+                        style: "width: 36px; height: 36px;",
+                        aria: { label: "Delete #{list.name}" },
+                        form: {
+                          class: "position-absolute top-0 end-0 m-2",
+                          style: "z-index: 2;",
+                          data: { turbo_confirm: "Delete the list “#{list.name}”?" }
+                        } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</main>
